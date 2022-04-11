@@ -1,18 +1,23 @@
+from ast import While
 from datetime import datetime, timedelta
+
 from setup import get_calendar_service
 
 
 def main():
    # creates one hour event tomorrow 10 AM IST
    service = get_calendar_service()
+   while True:
+      try:
+         date= str(input("Enter date of event: "))
+         dateC= datetime.strptime(date, '%m/%d/%Y')
+         break
+      except ValueError:
+         print("You entered your date in the wrong format. Please enter in format month/day/year.")
 
-   date= str(input("Enter date of event: "))
-   date_c= datetime.strptime(date, '%m %d %Y')
-   print(date_c)
-   #d = datetime.now().date()
-   #print(d)
 
-   tomorrow = datetime(d.year, d.month, d.day, 10)+timedelta(days=1)
+   tomorrow = datetime(dateC.year, dateC.month, dateC.day, 10)+timedelta(days=1)
+   print(tomorrow)
    start = tomorrow.isoformat()
    end = (tomorrow + timedelta(hours=1)).isoformat()
 
