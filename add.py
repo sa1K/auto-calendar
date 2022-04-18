@@ -1,5 +1,5 @@
 from ast import While
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 from setup import get_calendar_service
 
@@ -13,9 +13,11 @@ def main():
          dateC= datetime.strptime(date, '%m/%d/%Y')
          break
       except ValueError:
-         print("You entered your date in the wrong format. Please enter in format month/day/year.")
-
-
+         print("You entered your date in the wrong format. Please enter in format month/day/YYYY.")
+   name=str(input("Enter name of event: "))
+   startTime= str(input("Enter the time of event: "))
+   timeR= datetime.strptime(startTime, '%h:%m')
+   print(timeR)
    tomorrow = datetime(dateC.year, dateC.month, dateC.day, 10)+timedelta(days=1)
    print(tomorrow)
    start = tomorrow.isoformat()
@@ -23,10 +25,10 @@ def main():
 
    event_result = service.events().insert(calendarId='primary',
 	   body={
-		   "summary": 'Automating calendar',
+		   "summary": name,
 		   "description": 'This is a tutorial example of automating google calendar with python',
-		   "start": {"dateTime": start, "timeZone": 'Asia/Kolkata'},
-		   "end": {"dateTime": end, "timeZone": 'Asia/Kolkata'},
+		   "start": {"dateTime": start, "timeZone": 'America/New_York'},
+		   "end": {"dateTime": end, "timeZone": 'America/New_York'},
 	   }
    ).execute()
 
